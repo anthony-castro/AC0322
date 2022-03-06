@@ -12,6 +12,16 @@ public class RentalAgreement {
     private long chargeDays;
     private Tool rentedTool;
 
+    public RentalAgreement() {
+    }
+
+    public RentalAgreement(CheckoutInfo checkoutInfo, LocalDate dueDate, long chargeDays, Tool rentedTool) {
+        this.checkoutInfo = checkoutInfo;
+        this.dueDate = dueDate;
+        this.chargeDays = chargeDays;
+        this.rentedTool = rentedTool;
+    }
+
     public CheckoutInfo getCheckoutInfo() {
         return checkoutInfo;
     }

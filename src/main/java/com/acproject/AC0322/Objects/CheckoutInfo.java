@@ -8,6 +8,16 @@ public class CheckoutInfo {
     private int discountPercent;
     private LocalDate checkOutDate;
 
+    public CheckoutInfo() {
+    }
+
+    public CheckoutInfo(String toolCode, int rentalDays, int discountPercent, LocalDate checkOutDate) {
+        this.toolCode = toolCode;
+        this.rentalDays = rentalDays;
+        this.discountPercent = discountPercent;
+        this.checkOutDate = checkOutDate;
+    }
+
     public String getToolCode() {
         return toolCode;
     }
