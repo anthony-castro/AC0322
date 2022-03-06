@@ -13,20 +13,22 @@ import java.util.Arrays;
 public class RentalProcessor {
 
     public static final int INDEPENDENCE_DAY = 4;
+    public static final String RENTAL_DAY_ERROR_MESSAGE = "Error: Tool must be rented for at least 1 day.\n";
+    public static final String DISCOUNT_PERCENT_ERROR_MESSAGE = "Error: Discount percentage must be in the range of 0-100%.\n";
 
     public static String checkForInvalidCheckoutInfo(CheckoutInfo checkoutInfo) {
         StringBuilder errorsFound = new StringBuilder();
         //No upper bound limit on tool rental, just need 1 or greater
         if (checkoutInfo.getRentalDays() < 1) {
-            errorsFound.append("Error: Tool must be rented for at least 1 day.\n");
+            errorsFound.append(RENTAL_DAY_ERROR_MESSAGE);
         }
 
         if (checkoutInfo.getDiscountPercent() < 0 || checkoutInfo.getDiscountPercent() > 100) {
-            errorsFound.append("Error: Discount percentage must be in the range of 0-100%.\n");
+            errorsFound.append(DISCOUNT_PERCENT_ERROR_MESSAGE);
         }
 
         if (Arrays.stream(Tool.values()).map(tool -> tool.name()).noneMatch(toolName -> toolName.equalsIgnoreCase(checkoutInfo.getToolCode()))) {
-            errorsFound.append("Error: Tool code \"" + checkoutInfo.getToolCode() + "\" not recognized, please enter a valid tool code.");
+            errorsFound.append(getToolCodeErrorMessage(checkoutInfo.getToolCode()));
         }
 
         return errorsFound.toString();
@@ -134,6 +136,10 @@ public class RentalProcessor {
             return numOfLaborDays(daysToRemove, checkoutDate.plusYears(1), dueDate);
         }
         return daysToRemove;
+    }
+
+    public static String getToolCodeErrorMessage(String toolCode) {
+        return "Error: Tool code \"" + toolCode + "\" not recognized, please enter a valid tool code.";
     }
 
     private static boolean isWeekend(DayOfWeek dayOfWeek) {

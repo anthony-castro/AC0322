@@ -21,6 +21,8 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.dukescript.api:junit-browser-runner:1.0'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.1'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
