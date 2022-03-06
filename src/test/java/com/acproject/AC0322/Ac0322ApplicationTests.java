@@ -38,9 +38,14 @@ public class Ac0322ApplicationTests {
 
 	private MockMvc mockMvc;
 
+	private ObjectMapper mapper;
+
 	@BeforeEach
 	public void init() {
 		mockMvc = standaloneSetup(application).build();
+		mapper = new ObjectMapper();
+		mapper.registerModule(new JavaTimeModule());
+		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 	}
 
 	@Test
@@ -50,11 +55,6 @@ public class Ac0322ApplicationTests {
 
 	@Test
 	public void invalidCasesReturnBadRequestWithExpectedBody() throws Exception {
-		ObjectMapper mapper = new ObjectMapper();
-
-		mapper.registerModule(new JavaTimeModule());
-		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-
 		for (Map.Entry<CheckoutInfo, String> testCase : getInvalidTestCasesWithExpectedResponse().entrySet()) {
 
 			CheckoutInfo checkoutInfo = testCase.getKey();
@@ -75,11 +75,6 @@ public class Ac0322ApplicationTests {
 
 	@Test
 	public void validCheckoutRequestsReturnExpectedResult() throws Exception {
-		ObjectMapper mapper = new ObjectMapper();
-
-		mapper.registerModule(new JavaTimeModule());
-		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-
 		for (Map.Entry<CheckoutInfo, RentalAgreement> testCase : getValidCheckoutInfoWithExpectedRentalAgreement().entrySet()) {
 
 			CheckoutInfo checkoutInfo = testCase.getKey();
